@@ -1,0 +1,126 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+{{ product.name }} | RAPID SPORT
+{% endblock %}
+
+
+{% block content %}
+
+<section class="py-16">
+
+    <div
+        class="max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 items-start"
+    >
+
+        <!-- IMAGE -->
+
+        <div class="rounded-3xl overflow-hidden bg-zinc-900">
+
+            {% if product.image %}
+
+            <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+                class="w-full aspect-square object-cover"
+            >
+
+            {% else %}
+
+            <div
+                class="aspect-square flex items-center justify-center text-yellow-400 text-3xl font-black"
+            >
+                RAPID SPORT
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div>
+
+            <p class="yellow-label">
+                {{ product.category }}
+            </p>
+
+            <h1
+                class="text-4xl md:text-5xl font-black mt-3"
+            >
+                {{ product.name }}
+            </h1>
+
+            <p
+                class="text-yellow-400 text-3xl font-black mt-6"
+            >
+                ₹{{ product.price }}
+            </p>
+
+
+            <div class="mt-7 text-gray-300 leading-8">
+
+                {{ product.description|linebreaks }}
+
+            </div>
+
+
+            <div class="mt-8 space-y-3">
+
+                <p>
+                    <strong>Available Sizes:</strong>
+                    {{ product.size|default:"Contact us" }}
+                </p>
+
+                <p>
+                    <strong>Stock:</strong>
+                    {{ product.stock }}
+                </p>
+
+            </div>
+
+
+            {% if product.stock > 0 %}
+
+            <div class="flex flex-wrap gap-4 mt-10">
+
+                <a
+                    href="{% url 'add_to_cart' product.id %}"
+                    class="yellow-button"
+                >
+                    ORDER NOW →
+                </a>
+
+
+                <a
+                    href="https://wa.me/919876543210?text=Hi%20RAPID%20SPORT,%20I%20am%20interested%20in%20{{ product.name|urlencode }}%20-%20₹{{ product.price }}"
+                    target="_blank"
+                    class="outline-button"
+                >
+                    WHATSAPP
+                </a>
+
+            </div>
+
+            {% else %}
+
+            <div class="mt-10">
+
+                <span
+                    class="text-red-400 font-bold"
+                >
+                    OUT OF STOCK
+                </span>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+Custom Jersey | RAPID SPORT
+{% endblock %}
+
+
+{% block content %}
+
+<section class="py-16">
+
+    <div class="max-w-6xl mx-auto px-5">
+
+        <div class="text-center max-w-3xl mx-auto mb-12">
+
+            <p class="yellow-label">
+                RAPID CUSTOM
+            </p>
+
+            <h1 class="text-4xl md:text-6xl font-black mt-3">
+                CUSTOM JERSEY
+            </h1>
+
+            <p class="text-gray-400 mt-5">
+                Create your own team jersey with your
+                name, number and logo.
+            </p>
+
+        </div>
+
+
+        <div
+            class="max-w-3xl mx-auto bg-zinc-950 border border-white/10 rounded-3xl p-6 md:p-10"
+        >
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                class="space-y-6"
+            >
+
+                {% csrf_token %}
+
+
+                {% for field in form %}
+
+                <div>
+
+                    <label
+                        class="block text-sm font-semibold mb-2"
+                    >
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.errors %}
+
+                    <div class="text-red-400 text-sm mt-2">
+
+                        {{ field.errors }}
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+
+                <button
+                    type="submit"
+                    class="yellow-button w-full"
+                >
+                    SUBMIT CUSTOM JERSEY →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

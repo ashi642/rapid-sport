@@ -1,0 +1,73 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+Order Confirmed | RAPID SPORT
+{% endblock %}
+
+
+{% block content %}
+
+<section
+    class="min-h-[70vh] flex items-center justify-center px-5"
+>
+
+    <div
+        class="max-w-xl text-center bg-zinc-950 border border-yellow-400/30 rounded-3xl p-10"
+    >
+
+        <div class="text-6xl">
+            ✓
+        </div>
+
+        <h1 class="text-4xl font-black mt-5">
+            ORDER RECEIVED
+        </h1>
+
+        <p class="text-gray-400 mt-4">
+            Thank you, {{ order.customer_name }}.
+            Your order has been received by RAPID SPORT.
+        </p>
+
+
+        <div class="mt-8 bg-black rounded-2xl p-5 text-left">
+
+            <p>
+                <strong>Order:</strong>
+                #{{ order.id }}
+            </p>
+
+            <p class="mt-2">
+                <strong>Product:</strong>
+                {{ order.product.name }}
+            </p>
+
+            <p class="mt-2">
+                <strong>Quantity:</strong>
+                {{ order.quantity }}
+            </p>
+
+            <p class="mt-2">
+                <strong>Total:</strong>
+                ₹{{ order.total_price }}
+            </p>
+
+            <p class="mt-2">
+                <strong>Status:</strong>
+                {{ order.status }}
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'shop' %}"
+            class="yellow-button inline-block mt-8"
+        >
+            CONTINUE SHOPPING
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

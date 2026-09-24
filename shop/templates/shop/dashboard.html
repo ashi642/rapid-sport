@@ -1,0 +1,348 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+Dashboard | RAPID SPORT
+{% endblock %}
+
+
+{% block content %}
+
+<section class="py-12">
+
+    <div class="max-w-7xl mx-auto px-5">
+
+        <div
+            class="flex flex-col md:flex-row justify-between gap-5 mb-10"
+        >
+
+            <div>
+
+                <p class="yellow-label">
+                    SHOP MANAGEMENT
+                </p>
+
+                <h1 class="text-4xl md:text-5xl font-black">
+                    DASHBOARD
+                </h1>
+
+            </div>
+
+
+            <div class="flex gap-3">
+
+                <a
+                    href="/admin/"
+                    class="outline-button"
+                >
+                    DJANGO ADMIN
+                </a>
+
+                <a
+                    href="{% url 'dashboard_logout' %}"
+                    class="outline-button"
+                >
+                    LOGOUT
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div
+            class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12"
+        >
+
+            <div class="stat-card">
+
+                <span>
+                    Orders
+                </span>
+
+                <strong>
+                    {{ total_orders }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Pending
+                </span>
+
+                <strong>
+                    {{ pending_orders }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Shipped
+                </span>
+
+                <strong>
+                    {{ shipped_orders }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Delivered
+                </span>
+
+                <strong>
+                    {{ delivered_orders }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Sales
+                </span>
+
+                <strong>
+                    ₹{{ total_sales }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDERS -->
+
+        <div class="mb-12">
+
+            <h2 class="text-2xl font-black mb-5">
+                Recent Orders
+            </h2>
+
+
+            <div class="overflow-x-auto bg-zinc-950 rounded-2xl border border-white/10">
+
+                <table class="w-full text-left">
+
+                    <thead class="border-b border-white/10">
+
+                        <tr>
+
+                            <th class="p-4">
+                                Customer
+                            </th>
+
+                            <th class="p-4">
+                                Product
+                            </th>
+
+                            <th class="p-4">
+                                Qty
+                            </th>
+
+                            <th class="p-4">
+                                Total
+                            </th>
+
+                            <th class="p-4">
+                                Status
+                            </th>
+
+                            <th class="p-4">
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for order in orders %}
+
+                        <tr
+                            class="border-b border-white/5"
+                        >
+
+                            <td class="p-4">
+
+                                <strong>
+                                    {{ order.customer_name }}
+                                </strong>
+
+                                <br>
+
+                                <span class="text-gray-500 text-sm">
+                                    {{ order.phone }}
+                                </span>
+
+                            </td>
+
+                            <td class="p-4">
+                                {{ order.product.name }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ order.quantity }}
+                            </td>
+
+                            <td class="p-4 text-yellow-400 font-bold">
+                                ₹{{ order.total_price }}
+                            </td>
+
+                            <td class="p-4">
+
+                                <span class="px-3 py-1 rounded-full bg-yellow-400 text-black text-xs font-bold">
+                                    {{ order.status }}
+                                </span>
+
+                            </td>
+
+                            <td class="p-4 text-gray-400">
+                                {{ order.created_at|date:"d M Y" }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="p-8 text-center text-gray-500"
+                            >
+                                No orders yet.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOM JERSEYS -->
+
+        <div>
+
+            <h2 class="text-2xl font-black mb-5">
+                Custom Jersey Requests
+            </h2>
+
+
+            <div class="overflow-x-auto bg-zinc-950 rounded-2xl border border-white/10">
+
+                <table class="w-full text-left">
+
+                    <thead>
+
+                        <tr class="border-b border-white/10">
+
+                            <th class="p-4">
+                                Customer
+                            </th>
+
+                            <th class="p-4">
+                                Team
+                            </th>
+
+                            <th class="p-4">
+                                Name
+                            </th>
+
+                            <th class="p-4">
+                                Number
+                            </th>
+
+                            <th class="p-4">
+                                Size
+                            </th>
+
+                            <th class="p-4">
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for jersey in custom_orders %}
+
+                        <tr class="border-b border-white/5">
+
+                            <td class="p-4">
+                                {{ jersey.customer_name }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ jersey.team }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ jersey.name_on_jersey }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ jersey.number }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ jersey.size }}
+                            </td>
+
+                            <td class="p-4 text-yellow-400">
+                                {{ jersey.status }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="p-8 text-center text-gray-500"
+                            >
+                                No custom jersey requests.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

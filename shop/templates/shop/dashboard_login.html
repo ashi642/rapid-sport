@@ -1,0 +1,80 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+Owner Login | RAPID SPORT
+{% endblock %}
+
+
+{% block content %}
+
+<section
+    class="min-h-[75vh] flex items-center justify-center px-5"
+>
+
+    <div
+        class="w-full max-w-md bg-zinc-950 border border-white/10 rounded-3xl p-8"
+    >
+
+        <p class="yellow-label">
+            RAPID SPORT
+        </p>
+
+        <h1 class="text-3xl font-black mt-3">
+            OWNER LOGIN
+        </h1>
+
+
+        <form
+            method="POST"
+            class="mt-8 space-y-5"
+        >
+
+            {% csrf_token %}
+
+
+            <div>
+
+                <label class="block mb-2">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    class="form-input w-full"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label class="block mb-2">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-input w-full"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="yellow-button w-full"
+            >
+                LOGIN
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
